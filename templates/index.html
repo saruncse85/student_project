@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{% block title %} Student List {% endblock %}</h1>
+
+{% for student in students %}
+
+<div class='student'>
+    <h2>
+        <span style="Age:{{ student['age'] }}"></span>
+        {{ student['name'] }}
+    </h2>
+    <p>
+        ID: {{student['student_id']}} Age: {{ student['age'] }}  Grade: {{ student['grade'] }} Email: {{ student['email'] }} Phone: {{ student['phone'] }}
+        <span style="padding-left:22px"/>
+        <a><i class="fas fa-edit"></i></a>
+        <span style="padding-left:12px"/>
+        <a ><i class="fa fa-trash"></i></a>
+    </p>
+</div>
+{% endfor %}
+{% endblock %}
+
