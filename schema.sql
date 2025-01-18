@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS students;
 
 CREATE TABLE students (
-                          student_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                          id INTEGER PRIMARY KEY AUTOINCREMENT,
                           name TEXT NOT NULL,
                           age INTEGER,
                           grade TEXT NOT NULL,
@@ -59,7 +59,7 @@ create table student_project_assignment(
     status varchar not null,
     start_date date not null,
     end_date date not null,
-    foreign key (student_id) references students(student_id),
+    foreign key (student_id) references students(id),
     foreign key (Client_ID) references client(client_id),
     foreign key (supervisor_id) references supervisor(supervisor_id),
     foreign key (semester_id) references semesters(semester_id),
