@@ -4,19 +4,22 @@
 <h1>{% block title %} Add a New Student {% endblock %}</h1>
 <form method="post">
     <label for="name">Student Name</label>
-    <br>
     <input type="text" name="name"
-           placeholder="Bird Species Name"
-           value="{{ request.form['name'] }}"></input>
+           placeholder="Student Name"
+           value="{{ request.form['name']  }}"></input>
     <br>
 
-    <label for="size">Bird Size</label>
+    <label for="size">Student Age: </label>
+    <input type="number" name="age" placeholder="Student Age" value="{{ request.form['age']  }}"></input>
     <br>
-    <input type="number" name="size" value="{{ request.form['size'] }}"></input>
+    <label for="grade">Student Grade: </label>
+    <input type="text" name="grade" placeholder="Student Grade" value="{{ request.form['grade'] }}"></input>
     <br>
-    <label for="color">Bird Color</label>
-    <br>
-    <input type="color" name="color" value="{{ request.form['color'] }}"></input>
+    <label for="email">Student Email</label>
+    <input type="text" name="email" placeholder="Student Email" value="{{ request.form['email'] }}"></input>
+    <br>    
+    <label for="phone">Student Phone</label>
+    <input type="text" name="phone" placeholder="Student Phone" value="{{ request.form['phone'] }}"></input>
     <br>
     <button type="submit">Submit</button>
 </form>

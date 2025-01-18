@@ -11,69 +11,73 @@ def get_db_connection():
     return conn
 
 
-# def get_bird(bird_id):
-#     conn = get_db_connection()
-#     bird = conn.execute('SELECT * FROM birds WHERE id = ?',
-#                         (bird_id,)).fetchone()
-#     conn.close()
-#     if bird is None:
-#         abort(404)
-#     return bird
+def get_student(student_id):
+    conn = get_db_connection()
+    student = conn.execute('SELECT * FROM students WHERE id = ?',
+                        (student_id,)).fetchone()
+    conn.close()
+    if student is None:
+        abort(404)
+    return student
 
 
-@app.route('/')
+@app.route('/students')
 def index():
     conn = get_db_connection()
     students = conn.execute('SELECT * FROM students').fetchall()
-    print(students[0]['student_id'])
+    print(students[0]['id'])
     conn.close()
     return render_template('index.html', students=students)
 
 
-# @app.route('/create/', methods=('GET', 'POST'))
-# def create():
-#     if request.method == 'POST':
-#         name = request.form['name']
-#         size = request.form['size']
-#         color = request.form['color']
+@app.route('/create/', methods=('GET', 'POST'))
+def create():
+    # if request.method == 'POST':
+    #     name = request.form['name']
+    #     size = request.form['size']
+    #     color = request.form['color']
+
+    #     if not name:
+    #         flash('Name is required!')
+    #     elif not size:
+    #         flash('Size is required!')
+    #     else:
+    #         conn = get_db_connection()
+    #         conn.execute('INSERT INTO birds (name, size, color) VALUES (?, ?, ?)',
+    #                      (name, size, color))
+    #         conn.commit()
+    #         conn.close()
+    #         return redirect(url_for('index'))
+
+    return render_template('create.html')
 #
-#         if not name:
-#             flash('Name is required!')
-#         elif not size:
-#             flash('Size is required!')
-#         else:
-#             conn = get_db_connection()
-#             conn.execute('INSERT INTO birds (name, size, color) VALUES (?, ?, ?)',
-#                          (name, size, color))
-#             conn.commit()
-#             conn.close()
-#             return redirect(url_for('index'))
 #
-#     return render_template('create.html')
-#
-#
-# @app.route('/<int:id>/edit/', methods=('GET', 'POST'))
-# def edit(id):
-#     bird = get_bird(id)
-#
-#     if request.method == 'POST':
-#         name = request.form['name']
-#         size = request.form['size']
-#         color = request.form['color']
-#
-#         if not name:
-#             flash('Name is required!')
-#         elif not size:
-#             flash('Size is required!')
-#         else:
-#             conn = get_db_connection()
-#             conn.execute('UPDATE birds SET name = ?, size=?, color=? WHERE id=?',
-#                          (name, size, color, id))
-#             conn.commit()
-#             conn.close()
-#             return redirect(url_for('index'))
-#
-#     return render_template('edit.html', bird=bird)
+@app.route('/<int:id>/edit/', methods=('GET', 'POST'))
+def edit(id):
+    # print('inside edit metho')
+    student = get_student(id)
+    # print(student['name'])
+    # print('request method', request.method)
+    if request.method == 'POST':        
+        name = request.form['name']
+        age = request.form['age']
+        grade = request.form['grade']
+        email = request.form['email']
+        phone = request.form['phone']
+        
+        if not name:
+            flash('Name is required!')
+        elif not age:
+            flash('Age is required!')
+        else:
+            conn = get_db_connection()
+            conn.execute('UPDATE students SET name = ?, age=?, grade=?, email=?, phone=? WHERE id=?',
+                         (name, age, grade, email, phone, id))
+            conn.commit()
+            conn.close()
+            return redirect(url_for('index'))
+
+    return render_template('edit.html', student=student)
 #
 #
 # @app.route('/<int:id>/delete/')
@@ -91,9 +95,9 @@ def index():
 #     return redirect(url_for('index'))
 
 
-@app.route('/about/')
+@app.route('/')
 def about():
-    return render_template('about.html')
+    return render_template('home.html')
 
 
 ## Starts the server and hosts it when we "run" this file on replit
