@@ -32,32 +32,29 @@ def index():
 
 @app.route('/create/', methods=('GET', 'POST'))
 def create():
-    # if request.method == 'POST':
-    #     name = request.form['name']
-    #     size = request.form['size']
-    #     color = request.form['color']
+    if request.method == 'POST':
+        name = request.form['name']
+        age = request.form['age']
+        grade = request.form['grade']
+        email = request.form['email']
+        phone = request.form['phone']
 
-    #     if not name:
-    #         flash('Name is required!')
-    #     elif not size:
-    #         flash('Size is required!')
-    #     else:
-    #         conn = get_db_connection()
-    #         conn.execute('INSERT INTO birds (name, size, color) VALUES (?, ?, ?)',
-    #                      (name, size, color))
-    #         conn.commit()
-    #         conn.close()
-    #         return redirect(url_for('index'))
+        if not name:
+            flash('Name is required!')
+        else:
+            conn = get_db_connection()
+            conn.execute('INSERT INTO students (name, age, grade, email, phone) VALUES (?, ?, ?, ?, ?)',
+                         (name, age, grade, email, phone))
+            conn.commit()
+            conn.close()
+            return redirect(url_for('index'))
 
     return render_template('create.html')
 #
 #
 @app.route('/<int:id>/edit/', methods=('GET', 'POST'))
 def edit(id):
-    # print('inside edit metho')
     student = get_student(id)
-    # print(student['name'])
-    # print('request method', request.method)
     if request.method == 'POST':        
         name = request.form['name']
         age = request.form['age']
@@ -78,21 +75,21 @@ def edit(id):
             return redirect(url_for('index'))
 
     return render_template('edit.html', student=student)
-#
-#
-# @app.route('/<int:id>/delete/')
-# def delete(id):
-#     conn = get_db_connection()
-#     cursor = conn.cursor()
-#     cursor.execute('DELETE FROM birds WHERE id=?;', (id, ))
-#     rowsAffected = cursor.rowcount
-#     conn.commit()
-#     conn.close()
-#     if rowsAffected == 1:
-#         flash(f"Bird {id} deleted!")
-#     else:
-#         flash(f"No bird with id {id} to delete...")
-#     return redirect(url_for('index'))
+
+
+@app.route('/<int:id>/delete/')
+def delete(id):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute('DELETE FROM students WHERE id=?;', (id, ))
+    rowsAffected = cursor.rowcount
+    conn.commit()
+    conn.close()
+    if rowsAffected == 1:
+        flash(f"Student {id} deleted!")
+    else:
+        flash(f"No student with id {id} to delete...")
+    return redirect(url_for('index'))
 
 
 @app.route('/')
