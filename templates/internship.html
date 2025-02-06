@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>{% block title %} Internship Details {% endblock %}</h1>
+
+<a href="{{ url_for('create_intern') }}">
+    <button type="button" >Add Internship</button>
+</a>
+
+{% for intern in intership_details %}
+
+<div class='internship'>
+
+    <h2>
+        {{ intern['name'] }}
+    </h2>
+    <p>
+        Client Name: {{ intern['client_name'] }}
+        Status: {{ intern['status'] }}
+        Start Date: {{ intern['start_date'] }}
+        End Date: {{ intern['end_date'] }}
+        <span style="padding-left:22px"/>
+        <a href="{{ url_for('editInternship', id=intern['spa_id']) }}"><button>Edit</button></a>
+        <span style="padding-left:12px"/>   
+        <a href="{{ url_for('deleteInternship', id=intern['spa_id']) }}"><button>Delete</button></a>
+    </p>
+</div>  
+{% endfor %}
+
+{% endblock %}
