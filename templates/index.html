@@ -11,16 +11,15 @@
 
 <div class='student'>
     <h2>
-        <span style="Age:{{ student['age'] }}"></span>
         {{ student['name'] }}
     </h2>
     
     <p>
-        ID: {{student['id']}} Age: {{ student['age'] }}  Grade: {{ student['grade'] }} Email: {{ student['email'] }} Phone: {{ student['phone'] }}
+        ID: {{student['student_id']}} Age: {{ student['age'] }}  Grade: {{ student['grade'] }} Email: {{ student['email'] }} Phone: {{ student['phone'] }}
         <span style="padding-left:22px"/>
-        <a href="{{ url_for('edit', id=student['id']) }}"><button>Edit</button></a>
+        <a href="{{ url_for('edit', id=student['student_id']) }}"><button>Edit</button></a>
         <span style="padding-left:12px"/>   
-        <a href="{{ url_for('delete', id=student['id']) }}"><button>Delete</button></a>
+        <a href="{{ url_for('delete', id=student['student_id']) }}"><button>Delete</button></a>
     </p>
 </div>  
 {% endfor %}

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{% block title %} Edit Internship {% endblock %}</h1>
+<form method="post">
+
+    <label for="student_name">Student Name</label>
+
+    <select name="student_dropdown" disabled>
+        {% for student in students %}
+            <option value="{{ student['student_id'] }}" {% if student['student_id'] == internship['student_id'] %} selected {% endif %}>{{ student['name'] }}</option>
+        {% endfor %}
+    </select>
+    <br><br>
+    <label for="client_name">Client Name</label>    
+    <select name="client_dropdown">
+        {% for client in clients %}
+            <option value="{{ client['client_id'] }}" {% if client['client_id'] == internship['client_id'] %} selected {% endif %} >{{ client['client_name'] }}</option>
+        {% endfor %}
+    </select>
+    <br><br>
+    <label for="Status">Status</label> 
+    <input type="text" placeholder="Not Started yet" name ="status"  value="{{ internship['status']  }}"> 
+    <br><br>
+    <label for="start_date">Start Date:</label> 
+    <input type="text" placeholder="mm/dd/yyyy" name ="start_date" value="{{ internship['start_date']  }}"> 
+    <br><br>
+    <label for="Status">End Date:</label> 
+    <input type="text" placeholder="mm/dd/yyyy" name ="end_date" value="{{ internship['end_date']  }}"> 
+    <br><br>
+    <button type="submit">Submit</button>
+</form>
+{% endblock %}
